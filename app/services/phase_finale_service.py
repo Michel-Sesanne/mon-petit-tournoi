@@ -1,1 +1,0 @@
-# Détermine les qualifiés et crée les matchs de barrages, demi-finales et finale.
