@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Accueil{% endblock %}
+{% block content %}
+
+<div class="container">
+  {% if user %}
+    <h1>Bienvenue, {{ user.email }} 👋</h1>
+    <p>Tu es connecté à ton espace tournoi.</p>
+    <a href="{{ url_for('main_routes.logout') }}" class="btn">Se déconnecter</a>
+  {% else %}
+    <h1>Bienvenue sur Mon Petit Tournoi 🏆</h1>
+    <p>Connecte-toi pour accéder à ton tournoi.</p>
+    <a href="{{ url_for('main_routes.login') }}" class="btn">Se connecter</a>
+  {% endif %}
+</div>
+
+{% endblock %}

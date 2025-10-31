@@ -1,5 +1,5 @@
-from app.models import Tournoi, Joueur
-from app.services import simul
+from tournoiapp.models import Tournoi, Joueur
+from tournoiapp.services import simul
 
 def test():
     # --- Exemple de création d'un tournoi ---
@@ -69,6 +69,8 @@ def test():
     print("🏆 Vainqueur du tournoi :", finale.vainqueur)
 
 
+if __name__ == "__main__":
+    test()
 
     
 

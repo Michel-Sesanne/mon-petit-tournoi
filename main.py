@@ -1,5 +1,5 @@
-from app.models import Tournoi, Joueur
-from app.services import simul
+from tournoiapp.models import Tournoi, Joueur
+from tournoiapp.services import simul
 
 def main():
     # --- Exemple de création d'un tournoi ---

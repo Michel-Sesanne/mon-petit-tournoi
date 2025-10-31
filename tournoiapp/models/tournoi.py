@@ -1,8 +1,8 @@
 import math
 from datetime import date
 from typing import List, Optional
-from app.services import TirageService, CalendrierService
-from app.models import Chapeau, Joueur, Poule, Match, MatchKO
+from tournoiapp.services import TirageService, CalendrierService
+from tournoiapp.models import Chapeau, Joueur, Poule, Match, MatchKO
 class Tournoi:
     """
     Représente un tournoi avec ses joueurs, sa structure (poules, chapeaux, phases finales)

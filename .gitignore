@@ -1,0 +1,32 @@
+# Environnements virtuels
+venv/
+.env
+.env.*
+
+# Bytecode Python / caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Fichiers de configuration / IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Fichiers SQLite locaux
+*.db
+*.sqlite3
+
+# Logs et fichiers temporaires
+*.log
+*.pot
+*.pyc
+*.pyo
+*.swp
+*.tmp
+*.bak
+*.orig
+
+# Flask / instance folder
+instance/

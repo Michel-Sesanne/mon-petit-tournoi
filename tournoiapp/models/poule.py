@@ -1,4 +1,4 @@
-from app.models import Calendrier
+from tournoiapp.models import Calendrier
 from typing import Optional
 
 class Poule:
