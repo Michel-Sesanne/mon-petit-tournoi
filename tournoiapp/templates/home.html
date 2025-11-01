@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Accueil - TournoiApp{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <p>Bienvenue sur <strong>TournoiApp</strong> !</p>
+    <p>Créez et gérez vos tournois de manière simple et rapide.</p>
+
+    {% if not session.get('user_id') %}
+    <div class="buttons">
+        <a href="{{ url_for('main.login') }}" class="btn">Connexion</a>
+        <a href="{{ url_for('main.register') }}" class="btn">Inscription</a>
+    </div>
+    {% else %}
+    <p>Bonjour, {{ session.get('pseudo') }} ! <a href="{{ url_for('main.logout') }}">Déconnexion</a></p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Bienvenue, {{ pseudo }} !</h1>
+
+<h2>Vos joueurs</h2>
+<ul>
+  {% for joueur in joueurs %}
+    <li>{{ joueur.nom }} (Niveau {{ joueur.niveau }})</li>
+  {% else %}
+    <li>Aucun joueur enregistré.</li>
+  {% endfor %}
+</ul>
+
+
+<h2>Vos tournois</h2>
+<ul>
+  {% for tournoi in tournois %}
+    <li>Tournoi #{{ tournoi.id }} - {{ tournoi.nom or "Titre à définir" }}</li>
+  {% else %}
+    <li>Aucun tournoi créé.</li>
+  {% endfor %}
+</ul>
+
+
+<br>
+<a href="{{ url_for('main.logout') }}">Se déconnecter</a>
+{% endblock %}

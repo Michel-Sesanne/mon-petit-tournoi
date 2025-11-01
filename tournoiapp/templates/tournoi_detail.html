@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Détails du tournoi{% endblock %}
+{% block content %}
+<h2>{{ tournoi.nom }}</h2>
+<p>Date : {{ tournoi.date }}</p>
+<h3>Poules</h3>
+{% for poule in tournoi.poules %}
+    <h4>{{ poule.nom }}</h4>
+    <pre>{{ poule.calendrier }}</pre>
+    <pre>{{ poule }}</pre>
+{% endfor %}
+{% endblock %}

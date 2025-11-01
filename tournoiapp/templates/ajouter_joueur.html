@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Ajouter un joueur{% endblock %}
+
+{% block content %}
+<h1>Ajouter un joueur</h1>
+<form method="POST">
+    <label>Nom:</label>
+    <input type="text" name="nom" required>
+    <label>Niveau:</label>
+    <input type="number" name="niveau" min="1" max="10" required>
+    <button type="submit">Ajouter</button>
+</form>
+<a href="{{ url_for('main.dashboard') }}">Retour au dashboard</a>
+{% endblock %}

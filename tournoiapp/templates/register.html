@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block content %}
+<div class="register-container">
+    <h2>Inscription</h2>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="post">
+        <label>Pseudo :</label><br>
+        <input type="text" name="pseudo" required><br><br>
+
+        <label>Mot de passe :</label><br>
+        <input type="password" name="password" required><br><br>
+
+        <button type="submit" class="btn">S'inscrire</button>
+    </form>
+
+    <p>Déjà inscrit ? <a href="{{ url_for('main.login') }}">Se connecter</a></p>
+</div>
+{% endblock %}
