@@ -5,13 +5,39 @@
 <h1>Bienvenue, {{ pseudo }} !</h1>
 
 <h2>Vos joueurs</h2>
-<ul>
+<button id="btn-ajouter-joueur">+ Ajouter un joueur</button>
+
+{% set niveauxLibelles = {1:"Débutant",2:"Amateur",3:"Semi-pro",4:"Pro",5:"Expert",6:"Légende"} %}
+<ul id="dashboard">
   {% for joueur in joueurs %}
-    <li>{{ joueur.nom }} (Niveau {{ joueur.niveau }})</li>
+    <li>{{ joueur.nom }} 
+        <span class="badge badge-{{ joueur.niveau }}">{{ niveauxLibelles[joueur.niveau] }}</span>
+    </li>
   {% else %}
     <li>Aucun joueur enregistré.</li>
   {% endfor %}
 </ul>
+
+<!-- Modale -->
+<div id="modal-ajout-joueur" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Ajouter un joueur</h2>
+    <form id="form-ajout-joueur">
+      <input type="text" name="nom" placeholder="Nom du joueur" required />
+      <label for="niveau">Niveau :</label>
+      <select name="niveau" id="niveau" required>
+        <option value="1">Débutant</option>
+        <option value="2">Amateur</option>
+        <option value="3">Semi-pro</option>
+        <option value="4">Pro</option>
+        <option value="5">Expert</option>
+        <option value="6">Légende</option>
+      </select>
+      <button type="submit">Ajouter</button>
+    </form>
+  </div>
+</div>
 
 
 <h2>Vos tournois</h2>

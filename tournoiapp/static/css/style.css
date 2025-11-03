@@ -59,3 +59,117 @@ button:hover {
     color: white;
     border-radius: 5px;
 }
+
+/* ===========================
+   MODALE : Ajouter un joueur
+   =========================== */
+.modal {
+  display: none; /* cachée par défaut */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4); /* fond semi-transparent */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.modal h2 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #000;
+}
+
+/* --- LISTE DES JOUEURS --- */
+#dashboard {
+  list-style: none;
+  margin-top: 20px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+}
+
+#dashboard li {
+  background: #f8f9fb;
+  border: 1px solid #dce0e5;
+  border-radius: 8px;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: background 0.2s ease;
+}
+
+#dashboard li:hover {
+  background: #eef2f7;
+}
+
+#dashboard li span.badge {
+  color: white;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+#btn-ajouter-joueur {
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 15px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#btn-ajouter-joueur:hover {
+  background: #2c82c9;
+}
+
+.badge {
+  color: white;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.badge-1 { background-color: #95a5a6; }  /* Débutant : gris */
+.badge-2 { background-color: #3498db; }  /* Amateur : bleu */
+.badge-3 { background-color: #f1c40f; }  /* Semi-pro : jaune */
+.badge-4 { background-color: #e67e22; }  /* Pro : orange */
+.badge-5 { background-color: #e74c3c; }  /* Expert : rouge */
+.badge-6 { background-color: #8e44ad; }  /* Légende : violet */
+

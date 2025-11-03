@@ -1,22 +1,16 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request, session
+from flask import Blueprint, render_template, redirect, url_for, flash, request, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import User
+from .models import User, JoueurDB
 from tournoiapp import db
+
 bp = Blueprint('main', __name__)
 
-# ----------------------------
-# PAGE D’ACCUEIL
-# ----------------------------
 @bp.route('/')
 def home():
     if 'user_id' in session:
         return redirect(url_for('main.dashboard'))
     return render_template('home.html')
 
-
-# ----------------------------
-# INSCRIPTION
-# ----------------------------
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -39,10 +33,6 @@ def register():
 
     return render_template('register.html')
 
-
-# ----------------------------
-# CONNEXION
-# ----------------------------
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -62,23 +52,36 @@ def login():
     return render_template('login.html')
 
 
-# ----------------------------
-# DASHBOARD UTILISATEUR
-# ----------------------------
 @bp.route('/dashboard')
 def dashboard():
     if 'user_id' not in session:
         flash('Veuillez vous connecter pour accéder à cette page.', 'warning')
         return redirect(url_for('main.login'))
-    return render_template('dashboard.html', pseudo=session['pseudo'])
-
-
-# ----------------------------
-# DÉCONNEXION
-# ----------------------------
+    from tournoiapp.models import JoueurDB
+    joueurs = JoueurDB.query.all()
+    return render_template('dashboard.html', pseudo=session['pseudo'], joueurs=joueurs)
+ 
 @bp.route('/logout')
 def logout():
     session.clear()
     flash('Déconnexion réussie.', 'info')
     return redirect(url_for('main.home'))
 
+@bp.route('/ajouter_joueur', methods=['POST'])
+def ajouter_joueur():
+    nom = request.form.get('nom')
+    niveau = request.form.get('niveau')
+
+    if not nom or not niveau:
+        return jsonify({'error': 'Nom ou niveau manquant'}), 400
+
+    try:
+        niveau = int(niveau)
+    except ValueError:
+        return jsonify({'error': 'Niveau invalide'}), 400
+
+    joueur = JoueurDB(nom=nom, niveau=niveau)
+    db.session.add(joueur)
+    db.session.commit()
+
+    return jsonify({'nom': joueur.nom, 'niveau': joueur.niveau})

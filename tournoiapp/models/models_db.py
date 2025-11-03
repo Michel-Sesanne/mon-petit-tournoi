@@ -20,9 +20,19 @@ class JoueurDB(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nom = db.Column(db.String(64), nullable=False)
     niveau = db.Column(db.Integer, nullable=False)
-
+    @property
+    def niveau_libelle(self):
+        niveaux = {
+            1: "Débutant",
+            2: "Amateur",
+            3: "Semi-pro",
+            4: "Pro",
+            5: "Expert",
+            6: "Légende"
+        }
+        return niveaux.get(self.niveau, "Inconnu")
     def __repr__(self):
-        return f"<Joueur {self.nom} ({self.niveau})>"
+        return f"<{self.nom}>"
 
 
 class TournoiDB(db.Model):
