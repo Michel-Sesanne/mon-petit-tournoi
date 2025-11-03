@@ -85,3 +85,45 @@ def ajouter_joueur():
     db.session.commit()
 
     return jsonify({'nom': joueur.nom, 'niveau': joueur.niveau})
+
+@bp.route('/supprimer_joueur/<int:joueur_id>', methods=['POST'])
+def supprimer_joueur(joueur_id):
+    if 'user_id' not in session:
+        return jsonify({'error': 'Non autorisé'}), 401
+
+    joueur = JoueurDB.query.get(joueur_id)
+    if not joueur:
+        return jsonify({'error': 'Joueur non trouvé'}), 404
+
+    db.session.delete(joueur)
+    db.session.commit()
+    return jsonify({'success': True}), 200
+
+@bp.route('/modifier_joueur/<int:joueur_id>', methods=['POST'])
+def modifier_joueur(joueur_id):
+    if 'user_id' not in session:
+        return jsonify({'error': 'Non autorisé'}), 401
+
+    joueur = JoueurDB.query.get(joueur_id)
+    if not joueur:
+        return jsonify({'error': 'Joueur non trouvé'}), 404
+
+    data = request.form
+    nom = data.get('nom')
+    niveau = data.get('niveau')
+
+    if nom:
+        joueur.nom = nom
+    if niveau:
+        try:
+            joueur.niveau = int(niveau)
+        except ValueError:
+            return jsonify({'error': 'Niveau invalide'}), 400
+
+    db.session.commit()
+    return jsonify({
+        'id': joueur.id,
+        'nom': joueur.nom,
+        'niveau': joueur.niveau
+    }), 200
+

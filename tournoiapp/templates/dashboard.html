@@ -4,29 +4,48 @@
 {% block content %}
 <h1>Bienvenue, {{ pseudo }} !</h1>
 
+<h2>Vos tournois</h2>
+<ul>
+  {% for tournoi in tournois %}
+    <li>Tournoi #{{ tournoi.id }} - {{ tournoi.nom or "Titre à définir" }}</li>
+  {% else %}
+    <li>Aucun tournoi créé.</li>
+  {% endfor %}
+</ul>
+
 <h2>Vos joueurs</h2>
 <button id="btn-ajouter-joueur">+ Ajouter un joueur</button>
 
-{% set niveauxLibelles = {1:"Débutant",2:"Amateur",3:"Semi-pro",4:"Pro",5:"Expert",6:"Légende"} %}
+{% set niveaux = {1:"Débutant",2:"Amateur",3:"Semi-pro",4:"Pro",5:"Expert",6:"Légende"} %}
+
 <ul id="dashboard">
   {% for joueur in joueurs %}
-    <li>{{ joueur.nom }} 
-        <span class="badge badge-{{ joueur.niveau }}">{{ niveauxLibelles[joueur.niveau] }}</span>
+    <li data-id="{{ joueur.id }}">
+      {{ joueur.nom }} 
+      <span class="badge badge-{{ joueur.niveau }}">
+        {{ niveaux[joueur.niveau] }}
+      </span>
+      <button class="btn-modifier" title="Modifier">✏️</button>
+      <button class="btn-supprimer" title="Supprimer">🗑️</button>
     </li>
   {% else %}
     <li>Aucun joueur enregistré.</li>
   {% endfor %}
 </ul>
 
-<!-- Modale -->
+<a href="{{ url_for('main.logout') }}">Se déconnecter</a>
+
+<!-- ===========================
+     MODALE AJOUTER JOUEUR
+     =========================== -->
 <div id="modal-ajout-joueur" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
     <h2>Ajouter un joueur</h2>
     <form id="form-ajout-joueur">
       <input type="text" name="nom" placeholder="Nom du joueur" required />
-      <label for="niveau">Niveau :</label>
-      <select name="niveau" id="niveau" required>
+      <label>Niveau :</label>
+      <select name="niveau" required>
         <option value="1">Débutant</option>
         <option value="2">Amateur</option>
         <option value="3">Semi-pro</option>
@@ -39,17 +58,29 @@
   </div>
 </div>
 
+<!-- ===========================
+     MODALE MODIFIER JOUEUR
+     =========================== -->
+<div id="modal-modifier-joueur" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Modifier le joueur</h2>
+    <form id="form-modifier-joueur">
+      <input type="hidden" id="modifier-joueur-id" name="id">
+      <label>Nom :</label>
+      <input type="text" id="modifier-nom" name="nom" required>
+      <label>Niveau :</label>
+      <select id="modifier-niveau" name="niveau" required>
+        <option value="1">Débutant</option>
+        <option value="2">Amateur</option>
+        <option value="3">Semi-pro</option>
+        <option value="4">Pro</option>
+        <option value="5">Expert</option>
+        <option value="6">Légende</option>
+      </select>
+      <button type="submit">Enregistrer</button>
+    </form>
+  </div>
+</div>
 
-<h2>Vos tournois</h2>
-<ul>
-  {% for tournoi in tournois %}
-    <li>Tournoi #{{ tournoi.id }} - {{ tournoi.nom or "Titre à définir" }}</li>
-  {% else %}
-    <li>Aucun tournoi créé.</li>
-  {% endfor %}
-</ul>
-
-
-<br>
-<a href="{{ url_for('main.logout') }}">Se déconnecter</a>
 {% endblock %}
