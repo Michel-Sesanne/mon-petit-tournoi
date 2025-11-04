@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Préparation du Tournoi : {{ tournoi.nom }} (édition {{ tournoi.numero }})</h2>
+
+<form id="form-preparation">
+    <h3>Choisissez les joueurs et leurs équipes</h3>
+    <div id="liste-joueurs">
+        {% for joueur in joueurs %}
+        <div>
+            <input type="checkbox" name="joueurs" value="{{ joueur.id }}" id="joueur_{{ joueur.id }}">
+            <label for="joueur_{{ joueur.id }}">{{ joueur.nom }} (Niveau {{ joueur.niveau }})</label>
+            <input type="text" name="equipe_{{ joueur.id }}" placeholder="Nom de l'équipe">
+        </div>
+        {% endfor %}
+    </div>
+
+    <h3>Chapeaux (informative)</h3>
+    <div id="chapeaux-container">
+        <!-- sera rempli par le serveur au chargement -->
+        {% for i, chapeau in enumerate(chapeaux) %}
+        <div><strong>Chapeau {{ i+1 }}</strong>: 
+            {% for j in chapeau.joueurs %}
+            {{ j.nom }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <button type="submit">Effectuer le tirage</button>
+</form>
+
+<h3>Tirage en direct des poules</h3>
+<div id="tirage-poules">
+    <!-- Résultat du tirage -->
+</div>
+
+<script src="{{ url_for('static', filename='js/preparation_tournoi.js') }}"></script>
+{% endblock %}

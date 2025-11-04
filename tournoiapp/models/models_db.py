@@ -1,6 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from tournoiapp import db
+from datetime import datetime
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -37,8 +37,12 @@ class JoueurDB(db.Model):
 
 class TournoiDB(db.Model):
     __tablename__ = 'tournois'
+
     id = db.Column(db.Integer, primary_key=True)
-    nom = db.Column(db.String(64), nullable=False)
+    nom = db.Column(db.String(100), nullable=False)
+    numero = db.Column(db.String(100))
+    date = db.Column(db.DateTime, default=datetime.now)
+    etat = db.Column(db.String(50), default='En préparation')
 
     def __repr__(self):
-        return f"<Tournoi {self.nom}>"
+        return f"<{self.nom} #{self.numero}>"
